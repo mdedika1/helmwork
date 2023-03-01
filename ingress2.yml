@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myingress2
+  namespace: apm
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: alert.tresortech.net
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: prometheus-alertmanager
+            port:
+              number: 80
+  - host: prometheus.tresortech.net
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: prometheus-server
+            port:
+              number: 80
+  - host: grafana.tresortech.net
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 80
+
